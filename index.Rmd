@@ -1,0 +1,20 @@
+---
+title: "Practical Machine Learning Course Project"
+author: "Len Greski"
+date: "November 30, 2015"
+output: html_document
+---
+
+This is a sample document, including some of the default Rmd content to illustrate display of the page on a `gh-pages` website until we post actual content related to the Practical Machine Learning course project in December 2015. 
+
+```{r}
+summary(cars)
+```
+
+You can also embed plots, for example:
+
+```{r, echo=FALSE}
+plot(cars)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
