@@ -34,11 +34,12 @@ Our goal for this analysis is to use the Weight Lifting Exercises Dataset that w
 # Exploratory Data Analysis / Feature Selection
 
 Per the research team:
- > Six young health participants were asked to perform one set of 10 repititions (sic) of the 
- > Unilateral Dumbell Biceps Curl in five different fashions: exactly according to the
- > specification (Class A), throwing elbows to the front (Class B), lifting the dumbbell
- > only halfway (Class C), lowering the dumbbell only halfway (Class D), and throwing the
- > hips to the front (Class E).
+
+> Six young health participants were asked to perform one set of 10 repititions (sic) of the 
+> Unilateral Dumbell Biceps Curl in five different fashions: exactly according to the
+> specification (Class A), throwing elbows to the front (Class B), lifting the dumbbell
+> only halfway (Class C), lowering the dumbbell only halfway (Class D), and throwing the
+> hips to the front (Class E).
 
 The independent variables are a list of 153 variables collected from a belt sensor, an arm sensor, a forearm sensor, and a dumbbell sensor. 
 
