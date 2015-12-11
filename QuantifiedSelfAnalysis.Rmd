@@ -158,15 +158,21 @@ confusionMatrix(pred1,training$classe)
 
 ```{r modFit2, echo=FALSE, cache=TRUE}
 
-#intervalStart <- Sys.time()
-#mod2Control <- trainControl(method="cv",number=3,allowParallel=TRUE)
-#modFit2 <- train(classe ~ .,data=training,method="rf",trControl=mod2Control)
-#intervalEnd <- Sys.time()
-#paste("Train model2 took: ",intervalEnd - intervalStart,attr(intervalEnd - #intervalStart,"units"))
-#pred2 <- predict(modFit2,training)
-#confusionMatrix(pred2,training$classe)
-#predicted_test <- predict(modFit2,testing)
-#confusionMatrix(predicted_test,testing$classe)
+intervalStart <- Sys.time()
+mod2Control <- trainControl(method="cv",number=3,allowParallel=TRUE)
+modFit2 <- train(classe ~ .,data=training,method="rf",trControl=mod2Control)
+intervalEnd <- Sys.time()
+
+paste("Train model2 took: ",intervalEnd - intervalStart,attr(intervalEnd - intervalStart,"units"))
+                                                               
+
+pred2 <- predict(modFit2,training)
+
+confusionMatrix(pred2,training$classe)
+
+predicted_test <- predict(modFit2,testing)
+confusionMatrix(predicted_test,testing$classe)
+  
 ```
 
 
