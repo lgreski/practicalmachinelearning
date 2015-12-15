@@ -52,15 +52,19 @@ aFrame <- rbind(Counts,Percentages)
 kable(aFrame)
 ```
 
-Category A represents the exercises that were completed according to specification, about 28% of the total number of exercises measured across the six participants in the study. A successful classification model will not only predict whether the exercise was completed correctly (classe A vs. B through E), but also correctly classify the type of error made if the exercise was completed in error. For the purposes of our assignment, our machine learning algorithm  must predict the values of 20 unknown observations. Therefore, we'll need a model with over 95% accuracy in order to achieve 20 successful classifications for the 20 observations, since we'd expect at least 1 observation to be misclassified if the accuracy is less than 95%. 
+Category A represents the exercises that were completed according to specification, about 28% of the total number of exercises measured across the six participants in the study. A successful classification model will not only predict whether the exercise was completed correctly (classe A vs. B through E), but also correctly classify the type of error made if the exercise was completed in error. For the purposes of our assignment, our machine learning algorithm  must predict the values of 20 unknown observations. Therefore, we'll need a model with over 95% accuracy in order to achieve 20 successful classifications for the 20 observations, since the probability of achieving 20 out of 20 correct predictions is $p^20$, and $0.95^20 = 0.36$. At 99% accuracy, we have a .80 probability of 20 out of 20 matches. 
 
-A run of summary statistics on the independent training dataset shows that 100 of the 160 variables in the data set are missing for all of the observations. We will eliminate these from the analysis because there is no way to devise a meaningful missing value imputation strategy for these variables. We will also remove the date and time variables (`raw_timestamp_part_1`, `raw_timestamp_part_2`, and `cvtd_timestamp`) and `new_window`, since `new_window` did not have much variability, and therefore would not likely be a good variable to classify exercises into exercise quality levels. We also include the factor variable representing each individual's name as part of the model, to account for between person variability in the quality of the exercises. 
+### do a grouped bar chart to illustrate distribution of classe by person 
+
+A run of summary statistics on the independent training dataset shows that 100 of the 160 variables in the data set are missing for all of the observations. We will eliminate these from the analysis because there is no way to devise a meaningful missing value imputation strategy for these variables. We will also remove the date and time variables (`raw_timestamp_part_1`, `raw_timestamp_part_2`, and `cvtd_timestamp`) and `new_window`, since `new_window` was distributed as 2% "yes" and 98% "no",  Therefore it would not likely be a good variable to classify exercises into exercise quality levels. We also include the factor variable representing each individual's name as part of the model, to see whether accounting for between person variability in the quality of the exercises is of any value in predicting the result. 
 
 All of the remaining numeric variables have no missing values, so imputation of missing values is not required in order to increase the number of features included in the analysis. 
 
 ## Training the Model
 
 We started our analysis with a simple classification model based on linear discriminant analysis. We chose    
+
+### do a varImpPlot on the random forest 
 
 #### Cross-Validation & OOB Estimation
 Given that we are using the random forest technique to predict exercise quality, explain additional content here... 
