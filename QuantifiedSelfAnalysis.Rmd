@@ -99,6 +99,7 @@ The random forest technique generates multiple predictive models, and aggregates
 ```
 
 The random forest model is extremely powerful, correctly classifying all cases in our training data set. The algorithm produces optimal results with 30 predictors, reaching a maximum accuracy of 9.993 as illustrated by the following chart. 
+
 ```{r plotRFAccuracy, echo=FALSE}
 plot(modFit2,
      main="Accuracy by Predictor Count")
@@ -111,11 +112,17 @@ plot(modFit2$finalModel,main="Error by Fold: Random Forest Model")
 
 ```
 
+The relative importance of the variables is illustrated by the following variable importance plot. The six most important variables include `num_window`, `roll_belt`, `yaw_belt`, `roll_forearm`, `magnet_drumbell_x`, and ``pitch_belt`, each of which decreases the mean node impurity by at least 600, whereas the remaining variables decrease node impurity by 350 or less, using the summed and normalized Gini Coefficient. See [Dinsdale and Edwards - 2015](https://dinsdalelab.sdsu.edu/metag.stats/code/randomforest.html) for additional background on the Gini Coefficient in the randomForest variable importance.  
+
+```{r varImp, echo=FALSE}
+varImpPlot(modFit2$finalModel,
+           main="Variable Importance Plot: Random Forest",
+           type=2)
+```
+
 ### Expected Out of Sample Error
 
 Given the accuracy level achieved in the training data set, we expect the out of sample error rate to be less than 1%, giving us a 0.87 probability that we will correctly classify all of the validation cases.  
-
-
 
 ## Results
 
@@ -235,32 +242,33 @@ confusionMatrix(predicted_test,testing$classe)
 
 
 
-```{r writeFiles, echo=FALSE}
+```{r writeFiles, echo=TRUE}
 # generate predictions on validation data set 
 predicted_validation <- predict(modFit2,validation)
-#
-# compare machinelearning predictions to correct answers obtained from
-# random forest developed w/ bootstrap validation
-#
+# compare to correct answers as validated by submitting the individual files to Coursera for
+# part 2 of the assignment 
 answers <- c("B" ,"A","B","A", "A","E", "D", "B", "A", "A",
              "B", "C", "B", "A", "E", "E", "A", "B", "B", "B")
 results <- data.frame(answers,predicted_validation)
 which(as.character(results$answers) != as.character(results$predicted_validation))
 
 
-#pml_write_files = function(x){
-#  n = length(x)
-#  for(i in 1:n){
-#    filename = paste0("./data/problem_id_",i,".txt")
-#    write.table(x[i],file=filename,quote=FALSE,row.names=FALSE,col.names=FALSE)
-#  }
-#}
-#predicted_chars <- as.character(predicted_validation)
-#pml_write_files(predicted_chars)
+pml_write_files = function(x){
+  n = length(x)
+  for(i in 1:n){
+    filename = paste("./data/problem_id_",i,".txt")
+    write.table(x[i],file=filename,quote=FALSE,row.names=FALSE,col.names=FALSE)
+  }
+}
+predicted_chars <- as.character(predicted_validation)
+pml_write_files(predicted_chars)
 
 ```
 
 # References
 
-1. Velloso, E. et. al. (2013) -- [Qualitative Activity Recognition of Weight Lifting Exercises](http://groupware.les.inf.puc-rio.br/work.jsf?p1=11201), Proceedings of the 4th International Conference in Cooperation with SIGCHI (Augumented Human '13), Stuttgart, Germany, ACM SIGCHI, 2013. 
+1. Dinsdale, L. and Edwards, R. -- [Random Forests Webpage](https://dinsdalelab.sdsu.edu/metag.stats/code/randomforest.html), retrieved from the _Metagenomics. Statistics._ website on December 19, 2015. 
+
+2. Velloso, E. et. al. (2013) -- [Qualitative Activity Recognition of Weight Lifting Exercises](http://groupware.les.inf.puc-rio.br/work.jsf?p1=11201), Proceedings of the 4th International Conference in Cooperation with SIGCHI (Augumented Human '13), Stuttgart, Germany, ACM SIGCHI, 2013.
+
 
