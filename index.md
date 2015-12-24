@@ -1,6 +1,6 @@
 # Quantified Self Project - An Exercise in Machine Learning
 Len Greski  
-December 3, 2015  
+December 23, 2015  
 
 
 
@@ -37,22 +37,22 @@ The independent variables are a list of 153 variables collected from a belt sens
 The dependent variable, `classe`, is a categorical variable, with 16% to 28% of the observations in a given category, as illustrated below. 
 
 
-                          A              B              C              D              E
-------------  -------------  -------------  -------------  -------------  -------------
-Counts         3348.0000000   2279.0000000   2054.0000000   1930.0000000   2165.0000000
-Percentages       0.2843071      0.1935292      0.1744226      0.1638927      0.1838485
+             A      B      C      D      E    
+-----------  -----  -----  -----  -----  -----
+Count        3348   2279   2054   1930   2165 
+Percentage   28%    19%    17%    16%    18%  
 
 Category A represents the exercises that were completed according to specification, about 28% of the total number of exercises measured across the six participants in the study. Exercise quality varies significantly within and between persons, as illustrated in the following barplot. 
 
 ![](index_files/figure-html/unnamed-chunk-3-1.png) 
 
-A successful classification model will not only predict whether the exercise was completed correctly (classe A vs. B through E), but also correctly classify the type of error made if the exercise was completed in error. For the purposes of our assignment, our machine learning algorithm  must predict the values of 20 unknown observations. Therefore, we'll need a model with over 95% accuracy in order to achieve 20 successful classifications for the 20 observations, since the probability of achieving 20 out of 20 correct predictions is $p^{20}$, and $0.95^{20} = 0.36$. At 99% accuracy, we have a .80 probability of 20 out of 20 matches.
+A successful classification model will not only predict whether the exercise was completed correctly (classe A vs. B through E), but also correctly classify the type of error made if the exercise was completed in error. For the purposes of our assignment, our machine learning algorithm must predict the values of 20 unknown observations. Therefore, we'll need a model with over 95% accuracy in order to achieve 20 successful classifications for the 20 observations, since the probability of achieving 20 out of 20 correct predictions is $p^{20}$, and $0.95^{20} = 0.36$. At 99% accuracy, we estimate a .80 probability of 20 out of 20 matches.
 
-A run of summary statistics on the independent training dataset shows that 100 of the 160 variables in the data set are missing for all of the observations. We will eliminate these from the analysis because there is no way to devise a meaningful missing value imputation strategy for these variables. We will also remove the date and time variables (`raw_timestamp_part_1`, `raw_timestamp_part_2`, and `cvtd_timestamp`) and `new_window`, because `new_window` was distributed as 2% "yes" and 98% "no".  Therefore it would not likely be a good variable to classify exercises into exercise quality levels. We also include the factor variable representing each individual's name as part of the model, to see whether accounting for between person variability in the quality of the exercises is of any value in predicting the result. 
+A run of summary statistics on the independent training dataset shows that 100 of the 160 variables in the data set are missing for all of the observations. We will eliminate these from the analysis because there is no way to devise a meaningful missing value imputation strategy for these variables. We will also remove the date and time variables (`raw_timestamp_part_1`, `raw_timestamp_part_2`, and `cvtd_timestamp`) and `new_window`, because `new_window` was distributed as 2% "yes" and 98% "no".  Therefore it would not likely be a good variable to classify exercises into exercise quality levels. We also include the factor variable representing each individual's name as part of the model, to see whether accounting for within-person variability in the quality of the exercises is of any value in predicting the result. 
 
 All of the remaining numeric variables have no missing values, so imputation of missing values is not required in order to increase the number of features included in the analysis. 
 
-## Cross-Validation & OOB Estimation
+## Cross-Validation & Out of Sample Error Estimation
 
 To balance predictive power with a manageable time to build our models, we will use k-fold cross validation as our method for estimating our out of sample error. We will select 5 folds, meaning that the our classifiation algorithms will group the data into five subsamples, estimating five models where one model is saved as the hold out group while the remaining four subsamples are used to train the model. The results are then aggregated to create an overall estimate of the out of sample error. 
 
@@ -62,7 +62,7 @@ We begin the predictive modeling exercise with a simple classification model bas
 
 
 ```
-## [1] "Train model1 took:  2.43481588363647 secs"
+## [1] "Train model1 took:  2.46022009849548 secs"
 ```
 
 ```
@@ -99,7 +99,7 @@ We begin the predictive modeling exercise with a simple classification model bas
 ## Balanced Accuracy      0.9026   0.8218   0.8582   0.8289   0.8628
 ```
 
-The model has an overall accuracy of 77%, with the highest sensitivity being .84 for classifying an exercise as class A when it is indeed A. The model performs worst on class B, with only 71% sensitivity. The confusion matrix illustrates that a classficiation model based on linear discriminant analysis does not have sufficient accuracy for us to expect perfect or near-perfect classification of our unknown validation cases.
+The model has an overall accuracy of 77%, with the highest sensitivity being .84 for classifying an exercise as class A when it is indeed A. The model performs worst on class B, with only 71% sensitivity. The confusion matrix illustrates that a classification model based on linear discriminant analysis does not have sufficient accuracy for us to expect perfect or near-perfect classification of our unknown validation cases.
 
 ## Model 2: Random Forest 
 
@@ -136,7 +136,7 @@ The random forest technique generates multiple predictive models, and aggregates
 ```
 
 ```
-## [1] "Train model2 took:  3.20387674967448 mins"
+## [1] "Train model2 took:  3.44494303067525 mins"
 ```
 
 ```
@@ -207,7 +207,7 @@ The random forest technique generates multiple predictive models, and aggregates
 ## Balanced Accuracy      0.9984   0.9934   0.9964   0.9947   0.9989
 ```
 
-The random forest model is extremely powerful, correctly classifying all cases in our training data set. The algorithm produces optimal results with 30 predictors, reaching a maximum accuracy of 9.993 as illustrated by the following chart. 
+The random forest model is extremely powerful, correctly classifying all cases in our training data set. The algorithm produces optimal results with 30 predictors, reaching a maximum accuracy of 0.993 as illustrated by the following chart. 
 
 ![](index_files/figure-html/plotRFAccuracy-1.png) 
 
@@ -215,23 +215,23 @@ The final model selected by the algorithm quickly minimizes the error term, stab
 
 ![](index_files/figure-html/plotErr-1.png) 
 
-The relative importance of the variables is illustrated by the following variable importance plot. The six most important variables include `num_window`, `roll_belt`, `yaw_belt`, `roll_forearm`, `magnet_drumbell_x`, and ``pitch_belt`, each of which decreases the mean node impurity by at least 600, whereas the remaining variables decrease node impurity by 350 or less, using the summed and normalized Gini Coefficient. See [Dinsdale and Edwards - 2015](https://dinsdalelab.sdsu.edu/metag.stats/code/randomforest.html) for additional background on the Gini Coefficient in the randomForest variable importance.  
+The relative importance of the variables is illustrated by the following variable importance plot. The six most important variables include `num_window`, `roll_belt`, `yaw_belt`, `roll_forearm`, `magnet_drumbell_x`, and `pitch_belt`, each of which decreases the mean node impurity by at least 600, whereas the remaining variables decrease node impurity by 350 or less, using the summed and normalized Gini Coefficient. See [Dinsdale and Edwards \(2015\)](https://dinsdalelab.sdsu.edu/metag.stats/code/randomforest.html) for additional background on the Gini Coefficient in the random forest variable importance.  
 
 ![](index_files/figure-html/varImp-1.png) 
 
 ### Expected Out of Sample Error
 
-Given the accuracy level achieved in the training data set, we expect the out of sample error rate to be less than 1%, giving us a 0.87 probability that we will correctly classify all of the validation cases.  
+Given the accuracy level achieved via cross-validation of the model against multiple folds of the training data set, we expect the out of sample error rate to be less than 1%. Therefore, we estimate a 0.87 probability that we will correctly classify all 20 of the validation cases.  
 
 ## Results
 
-The results for our random forest were excellent, with an OOB estimate of error rate at 0.55% When we apply the model to the test data set that we held out of of the model building steps, we find that the model accurately predicts 99.45% of the test cases, incorrectly classifying 43 of the 7,846 observations.  
-
+The results from our random forest model were excellent. Applying the model to the test data set that we held out of of the model building steps, we find that the model accurately predicts 99.45% of the test cases, incorrectly classifying only 43 of the 7,846 observations. The error rate for the test data set is only 0.55%, giving us a .9 probability that the model would correctly classify all 20 validation cases. 
 
 Finally, our accuracy at predicting the 20 cases in the validation data set was 100%.  All in all, a good effort for our first attempt at a random forest. 
 
 ## Appendix
 
+Note that a run of the Microsoft Word word counter on the narrative text in this report (counting text before the start of the Appendix section) results in a count of 1,309 words, well under the 2,000 word limit for the report. 
 
 
 
@@ -240,40 +240,9 @@ Finally, our accuracy at predicting the 20 cases in the validation data set was 
 
 
 
-```
-## Warning: closing unused connection 12 (<-lmg-omen:11640)
-```
 
 ```
-## Warning: closing unused connection 11 (<-lmg-omen:11640)
-```
-
-```
-## Warning: closing unused connection 10 (<-lmg-omen:11640)
-```
-
-```
-## Warning: closing unused connection 9 (<-lmg-omen:11640)
-```
-
-```
-## Warning: closing unused connection 8 (<-lmg-omen:11640)
-```
-
-```
-## Warning: closing unused connection 7 (<-lmg-omen:11640)
-```
-
-```
-## Warning: closing unused connection 6 (<-lmg-omen:11640)
-```
-
-```
-## Warning: closing unused connection 5 (<-lmg-omen:11640)
-```
-
-```
-## [1] "Train model1 took:  15.0844221115112 secs"
+## [1] "Train model1 took:  15.942859172821 secs"
 ```
 
 ```
@@ -333,7 +302,7 @@ Finally, our accuracy at predicting the 20 cases in the validation data set was 
 ```
 
 ```
-## [1] "Train model2 took:  2.98590758641561 mins"
+## [1] "Train model2 took:  3.048748199145 mins"
 ```
 
 ```
@@ -436,7 +405,7 @@ pml_write_files(predicted_chars)
 
 # References
 
-1. Dinsdale, L. and Edwards, R. -- [Random Forests Webpage](https://dinsdalelab.sdsu.edu/metag.stats/code/randomforest.html), retrieved from the _Metagenomics. Statistics._ website on December 19, 2015. 
+1. Dinsdale, L. and Edwards, R. (2015) -- [Random Forests Webpage](https://dinsdalelab.sdsu.edu/metag.stats/code/randomforest.html), retrieved from the _Metagenomics. Statistics._ website on December 19, 2015. 
 
 2. Velloso, E. et. al. (2013) -- [Qualitative Activity Recognition of Weight Lifting Exercises](http://groupware.les.inf.puc-rio.br/work.jsf?p1=11201), Proceedings of the 4th International Conference in Cooperation with SIGCHI (Augumented Human '13), Stuttgart, Germany, ACM SIGCHI, 2013.
 
