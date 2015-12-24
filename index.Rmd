@@ -20,7 +20,7 @@ output:
 Classification of data from the [Qualitative Activity Recognition of Weight Lifting Exercises](http://groupware.les.inf.puc-rio.br/work.jsf?p1=11201) study to predict exercise quality for unknown observations from the study resulted in a 100% accuracy rate with a random forest technique. Key findings included:
 
 * Fully 62.5% of the data in the dataset was unusable, due to the high rates of missing values,
-* Of the remaining 60 variables, 55 were used to predict the values of the quality variable, `classe`, and
+* Of the remaining 60 variables, 54 were used to predict the values of the quality variable, `classe`, and
 * A random forest model with 30 variables achieved 99.45% accuracy, correctly identifying 20 out of 20 unknown test cases. 
 
 ## Background
@@ -43,7 +43,9 @@ Per the research team:
 
 The independent variables are a list of 153 variables collected from a belt sensor, an arm sensor, a forearm sensor, and a dumbbell sensor. 
 
-The dependent variable, `classe`, is a categorical variable, with 16% to 28% of the observations in a given category, as illustrated below. 
+The dependent variable, `classe`, is a categorical variable with 16% to 28% of the observations in a given category, as illustrated in the following table.
+
+#### Exercise Classification Frequency Across Subjects
 
 ```{r depVar, echo=FALSE, warning=FALSE}
 Count <- table(training$classe)
@@ -53,7 +55,7 @@ kable(aFrame)
 countsByname <- table(training$classe,training$user_name)
 ```
 
-Category A represents the exercises that were completed according to specification, about 28% of the total number of exercises measured across the six participants in the study. Exercise quality varies significantly within and between persons, as illustrated in the following barplot. 
+Category A represents the exercises that were completed according to specification, approximately 28% of the total number of exercises measured across the six participants in the study. Exercise quality varies significantly within and between persons, as illustrated in the following barplot. 
 
 ```{r, echo=FALSE, warning=FALSE}
 barplot(countsByname,
@@ -87,7 +89,7 @@ The model has an overall accuracy of 77%, with the highest sensitivity being .84
 
 ## Model 2: Random Forest 
 
-The random forest technique generates multiple predictive models, and aggregates them to create a final result. Random forests have a high degree of predictive power, and can be tuned according to a variety of parameters, including a range of choices from k-fold cross validation to leave one out bootstrapping. As we did with the linear discriminant analysis, we use k-fold cross validation with five folds. 
+The random forest technique generates multiple predictive models, and aggregates them to create a final result. Random forests have a high degree of predictive power, and can be tuned according to a variety of parameters, including a range of choices for estimating out of sample error from k-fold cross validation to leave one out bootstrapping. As we did with the linear discriminant analysis, we use k-fold cross validation with five folds. 
 
 ```{r ref.label="useParallel", echo=FALSE, warning=FALSE}
 # run LDA model 
@@ -132,7 +134,7 @@ Finally, our accuracy at predicting the 20 cases in the validation data set was 
 
 ## Appendix
 
-Note that a run of the Microsoft Word word counter on the narrative text in this report (counting text before the start of the Appendix section) results in a count of 1,309 words, well under the 2,000 word limit for the report. 
+Note that a run of the Microsoft Word word counter on the narrative text in this report (counting text before the start of the Appendix section) results in a count of 1,315 words, well under the 2,000 word limit for the report. 
 
 ```{r dataDownload, echo=FALSE, warning=FALSE}
 theFiles <- c("pml-testing.csv","pml-training.csv")

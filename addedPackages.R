@@ -1,5 +1,5 @@
-install.packages("pbkrtest",type="win.binary")
-install.packages("caret")
+# install.packages("pbkrtest",type="win.binary")
+#install.packages("caret")
 
 install.packages(pkgs = "caret", 
                  dependencies = c("Depends", "Imports"))
