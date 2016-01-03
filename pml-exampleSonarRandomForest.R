@@ -51,7 +51,7 @@ stopCluster(cluster)
 #
 fit
 fit$resample
-confiusionMatrix.train(fit)
+confusionMatrix.train(fit)
 plot(fit,main="Accuracy by Predictor Count")
 varImpPlot(fit$finalModel,
            main="Variable Importance Plot: Random Forest")
