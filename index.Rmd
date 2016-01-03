@@ -207,7 +207,7 @@ registerDoParallel(cluster)
 
 ```
 
-```{r buildModel1, echo=FALSE, warning=FALSE, cache=TRUE}
+```{r buildModel1, echo=TRUE, warning=FALSE, cache=TRUE, EVAL=FALSE}
 yvars <- training[,55]
 xvars <- training[,-55]
 intervalStart <- Sys.time()
@@ -224,7 +224,7 @@ confusionMatrix(pred1,training$classe)
 # predicted_validation <- predict(modFit,validation)
 ```
 
-```{r buildModel2, echo=FALSE, warning=FALSE, cache=TRUE}
+```{r buildModel2, echo=TRUE, warning=FALSE, cache=TRUE, eval=FALSE}
 library(randomForest)
 intervalStart <- Sys.time()
 mod2Control <- trainControl(method="cv",number=5,allowParallel=TRUE)
