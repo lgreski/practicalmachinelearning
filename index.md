@@ -1,6 +1,6 @@
 # Quantified Self Project - An Exercise in Machine Learning
 Len Greski  
-January 30, 2016  
+January 31, 2016  
 
 
 
@@ -64,7 +64,7 @@ We begin the predictive modeling exercise with a simple classification model bas
 
 
 ```
-## [1] "Train model1 took:  2.94574499130249 secs"
+## [1] "Train model1 took:  3.00625586509705 secs"
 ```
 
 ```
@@ -129,16 +129,16 @@ The random forest technique generates multiple predictive models, and aggregates
 ## Resampling results across tuning parameters:
 ## 
 ##   mtry  Accuracy   Kappa      Accuracy SD  Kappa SD   
-##    2    0.9910839  0.9887205  0.002878974  0.003643132
-##   30    0.9953298  0.9940924  0.001775487  0.002246404
-##   58    0.9905743  0.9880766  0.001570030  0.001988875
+##    2    0.9913385  0.9890425  0.002557695  0.003236674
+##   30    0.9954147  0.9941998  0.001570898  0.001987481
+##   58    0.9904893  0.9879693  0.002431000  0.003077449
 ## 
 ## Accuracy was used to select the optimal model using  the largest value.
 ## The final value used for the model was mtry = 30.
 ```
 
 ```
-## [1] "Train model2 took:  6.04210311969121 mins"
+## [1] "Train model2 took:  6.02194840113322 mins"
 ```
 
 ```
@@ -213,7 +213,7 @@ The random forest technique generates multiple predictive models, and aggregates
 ## Balanced Accuracy      0.9991   0.9961   0.9968   0.9988   0.9982
 ```
 
-The random forest model is extremely powerful, correctly classifying all cases in our training data set. When applied to the 40% holdout from the training data, the accuracy is .9967, very close to the 1.0 accuracy that was obtained with the 5 fold cross validation against the 60% sample of the training data. The algorithm produces optimal results with 30 predictors, reaching a maximum accuracy of 0.9967 as illustrated by the following chart. 
+The random forest model is extremely powerful, correctly classifying all cases in our training data set. When applied to the 40% holdout from the training data, the accuracy is .9967, very close to the 1.0 accuracy that was obtained with the 5 fold cross validation against the 60% sample of the training data. The algorithm produces optimal results with 30 predictors, reaching a maximum accuracy of over 0.994 as illustrated by the following chart. 
 
 ![](index_files/figure-html/plotRFAccuracy-1.png) 
 
