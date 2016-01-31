@@ -2,9 +2,10 @@
 title: "Quantified Self Project - An Exercise in Machine Learning"
 author: "Len Greski"
 date: "January 31, 2016"
-output: 
-  html_document: 
+output:
+  html_document:
     keep_md: yes
+  pdf_document: default
 ---
 
 ```{r ref.label="dataDownload", echo=FALSE, warning=FALSE}
@@ -22,6 +23,10 @@ Classification of data from the [Qualitative Activity Recognition of Weight Lift
 * Fully 62.5% of the data in the dataset was unusable, due to the high rates of missing values,
 * Of the remaining 60 variables, 54 were used to predict the values of the quality variable, `classe`, and
 * A random forest model with 30 variables achieved 99.45% accuracy, correctly identifying 20 out of 20 unknown test cases. 
+
+## Online Versions
+
+The Github Pages version of this report may be found at [Quantified Self Project - An Exercise in Machine Learning](http://lgreski.github.io/practicalmachinelearning), and is sourced at [Len Greski's Practical Machine Learning Github Repository](https://github.com/lgreski/practicalmachinelearning). 
 
 ## Background
 
@@ -100,7 +105,7 @@ The random forest technique generates multiple predictive models, and aggregates
 # run RF model 
 ```
 
-The random forest model is extremely powerful, correctly classifying all cases in our training data set. When applied to the 40% holdout from the training data, the accuracy is .9967, very close to the 1.0 accuracy that was obtained with the 5 fold cross validation against the 60% sample of the training data. The algorithm produces optimal results with 30 predictors, reaching a maximum accuracy of over 0.994 as illustrated by the following chart. 
+The random forest model is extremely powerful, correctly classifying all cases in our training data set. When applied to the 40% holdout from the training data, the accuracy is .9967, very close to the 1.0 accuracy that was obtained with the 5 fold cross validation against the 60% sample of the training data. The algorithm produces optimal results with 30 predictors, reaching a maximum accuracy of approximately 0.995 as illustrated by the following chart. 
 
 ```{r plotRFAccuracy, echo=FALSE, warning=FALSE}
 plot(modFit2,
