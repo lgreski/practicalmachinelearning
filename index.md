@@ -1,6 +1,6 @@
 # Quantified Self Project - An Exercise in Machine Learning
 Len Greski  
-December 23, 2015  
+January 30, 2016  
 
 
 
@@ -11,7 +11,7 @@ December 23, 2015
 Classification of data from the [Qualitative Activity Recognition of Weight Lifting Exercises](http://groupware.les.inf.puc-rio.br/work.jsf?p1=11201) study to predict exercise quality for unknown observations from the study resulted in a 100% accuracy rate with a random forest technique. Key findings included:
 
 * Fully 62.5% of the data in the dataset was unusable, due to the high rates of missing values,
-* Of the remaining 60 variables, 55 were used to predict the values of the quality variable, `classe`, and
+* Of the remaining 60 variables, 54 were used to predict the values of the quality variable, `classe`, and
 * A random forest model with 30 variables achieved 99.45% accuracy, correctly identifying 20 out of 20 unknown test cases. 
 
 ## Background
@@ -34,7 +34,9 @@ Per the research team:
 
 The independent variables are a list of 153 variables collected from a belt sensor, an arm sensor, a forearm sensor, and a dumbbell sensor. 
 
-The dependent variable, `classe`, is a categorical variable, with 16% to 28% of the observations in a given category, as illustrated below. 
+The dependent variable, `classe`, is a categorical variable with 16% to 28% of the observations in a given category, as illustrated in the following table.
+
+#### Exercise Classification Frequency Across Subjects
 
 
              A      B      C      D      E    
@@ -42,7 +44,7 @@ The dependent variable, `classe`, is a categorical variable, with 16% to 28% of 
 Count        3348   2279   2054   1930   2165 
 Percentage   28%    19%    17%    16%    18%  
 
-Category A represents the exercises that were completed according to specification, about 28% of the total number of exercises measured across the six participants in the study. Exercise quality varies significantly within and between persons, as illustrated in the following barplot. 
+Category A represents the exercises that were completed according to specification, approximately 28% of the total number of exercises measured across the six participants in the study. Exercise quality varies significantly within and between persons, as illustrated in the following barplot. 
 
 ![](index_files/figure-html/unnamed-chunk-3-1.png) 
 
@@ -62,7 +64,7 @@ We begin the predictive modeling exercise with a simple classification model bas
 
 
 ```
-## [1] "Train model1 took:  2.46022009849548 secs"
+## [1] "Train model1 took:  2.94574499130249 secs"
 ```
 
 ```
@@ -70,40 +72,40 @@ We begin the predictive modeling exercise with a simple classification model bas
 ## 
 ##           Reference
 ## Prediction    A    B    C    D    E
-##          A 2826  186   40   26   75
-##          B  162 1612  191   73  180
-##          C  186  301 1678  338  153
-##          D  174  148  134 1389  153
-##          E    0   32   11  104 1604
+##          A 2857  313  182   99   73
+##          B   90 1526  189   78  248
+##          C  179  297 1424  253  142
+##          D  220   71  228 1479  187
+##          E    2   72   31   21 1515
 ## 
 ## Overall Statistics
 ##                                           
-##                Accuracy : 0.7735          
-##                  95% CI : (0.7659, 0.7811)
+##                Accuracy : 0.7474          
+##                  95% CI : (0.7394, 0.7552)
 ##     No Information Rate : 0.2843          
 ##     P-Value [Acc > NIR] : < 2.2e-16       
 ##                                           
-##                   Kappa : 0.7144          
+##                   Kappa : 0.6802          
 ##  Mcnemar's Test P-Value : < 2.2e-16       
 ## 
 ## Statistics by Class:
 ## 
 ##                      Class: A Class: B Class: C Class: D Class: E
-## Sensitivity            0.8441   0.7073   0.8169   0.7197   0.7409
-## Specificity            0.9612   0.9362   0.8994   0.9381   0.9847
-## Pos Pred Value         0.8963   0.7268   0.6318   0.6952   0.9160
-## Neg Pred Value         0.9395   0.9302   0.9588   0.9447   0.9440
+## Sensitivity            0.8533   0.6696   0.6933   0.7663   0.6998
+## Specificity            0.9209   0.9363   0.9104   0.9283   0.9869
+## Pos Pred Value         0.8107   0.7161   0.6205   0.6769   0.9232
+## Neg Pred Value         0.9405   0.9219   0.9336   0.9530   0.9359
 ## Prevalence             0.2843   0.1935   0.1744   0.1639   0.1838
-## Detection Rate         0.2400   0.1369   0.1425   0.1180   0.1362
-## Detection Prevalence   0.2677   0.1883   0.2255   0.1697   0.1487
-## Balanced Accuracy      0.9026   0.8218   0.8582   0.8289   0.8628
+## Detection Rate         0.2426   0.1296   0.1209   0.1256   0.1287
+## Detection Prevalence   0.2993   0.1810   0.1949   0.1855   0.1394
+## Balanced Accuracy      0.8871   0.8029   0.8018   0.8473   0.8433
 ```
 
-The model has an overall accuracy of 77%, with the highest sensitivity being .84 for classifying an exercise as class A when it is indeed A. The model performs worst on class B, with only 71% sensitivity. The confusion matrix illustrates that a classification model based on linear discriminant analysis does not have sufficient accuracy for us to expect perfect or near-perfect classification of our unknown validation cases.
+The model has an overall accuracy of 75%, with the highest sensitivity being .85 for classifying an exercise as class A when it is indeed A. The model performs worst on class B, with only 67% sensitivity. The confusion matrix illustrates that a classification model based on linear discriminant analysis does not have sufficient accuracy for us to expect perfect or near-perfect classification of our unknown validation cases.
 
 ## Model 2: Random Forest 
 
-The random forest technique generates multiple predictive models, and aggregates them to create a final result. Random forests have a high degree of predictive power, and can be tuned according to a variety of parameters, including a range of choices from k-fold cross validation to leave one out bootstrapping. As we did with the linear discriminant analysis, we use k-fold cross validation with five folds. 
+The random forest technique generates multiple predictive models, and aggregates them to create a final result. Random forests have a high degree of predictive power, and can be tuned according to a variety of parameters, including a range of choices for estimating out of sample error from k-fold cross validation to leave one out bootstrapping. As we did with the linear discriminant analysis, we use k-fold cross validation with five folds. 
 
 
 
@@ -123,20 +125,20 @@ The random forest technique generates multiple predictive models, and aggregates
 ## 
 ## No pre-processing
 ## Resampling: Cross-Validated (5 fold) 
-## Summary of sample sizes: 9420, 9421, 9422, 9420, 9421 
+## Summary of sample sizes: 9421, 9421, 9420, 9420, 9422 
 ## Resampling results across tuning parameters:
 ## 
 ##   mtry  Accuracy   Kappa      Accuracy SD  Kappa SD   
-##    2    0.9882810  0.9851739  0.001768730  0.002238809
-##   30    0.9927818  0.9908692  0.002227254  0.002818055
-##   58    0.9875170  0.9842110  0.001959109  0.002477219
+##    2    0.9910839  0.9887205  0.002878974  0.003643132
+##   30    0.9953298  0.9940924  0.001775487  0.002246404
+##   58    0.9905743  0.9880766  0.001570030  0.001988875
 ## 
 ## Accuracy was used to select the optimal model using  the largest value.
 ## The final value used for the model was mtry = 30.
 ```
 
 ```
-## [1] "Train model2 took:  3.44494303067525 mins"
+## [1] "Train model2 took:  6.04210311969121 mins"
 ```
 
 ```
@@ -174,40 +176,44 @@ The random forest technique generates multiple predictive models, and aggregates
 ```
 
 ```
+## Predict & estimate out of sample error on data held back from training data set.
+```
+
+```
 ## Confusion Matrix and Statistics
 ## 
 ##           Reference
 ## Prediction    A    B    C    D    E
-##          A 2228    7    0    1    0
-##          B    1 1500    4    0    3
-##          C    2   10 1363   11    0
-##          D    1    1    1 1273    0
-##          E    0    0    0    1 1439
+##          A 2231    8    0    0    0
+##          B    0 1508    8    0    0
+##          C    0    2 1360    2    0
+##          D    0    0    0 1284    5
+##          E    1    0    0    0 1437
 ## 
 ## Overall Statistics
-##                                          
-##                Accuracy : 0.9945         
-##                  95% CI : (0.9926, 0.996)
-##     No Information Rate : 0.2845         
-##     P-Value [Acc > NIR] : < 2.2e-16      
-##                                          
-##                   Kappa : 0.9931         
-##  Mcnemar's Test P-Value : NA             
+##                                           
+##                Accuracy : 0.9967          
+##                  95% CI : (0.9951, 0.9978)
+##     No Information Rate : 0.2845          
+##     P-Value [Acc > NIR] : < 2.2e-16       
+##                                           
+##                   Kappa : 0.9958          
+##  Mcnemar's Test P-Value : NA              
 ## 
 ## Statistics by Class:
 ## 
 ##                      Class: A Class: B Class: C Class: D Class: E
-## Sensitivity            0.9982   0.9881   0.9963   0.9899   0.9979
-## Specificity            0.9986   0.9987   0.9964   0.9995   0.9998
-## Pos Pred Value         0.9964   0.9947   0.9834   0.9976   0.9993
-## Neg Pred Value         0.9993   0.9972   0.9992   0.9980   0.9995
+## Sensitivity            0.9996   0.9934   0.9942   0.9984   0.9965
+## Specificity            0.9986   0.9987   0.9994   0.9992   0.9998
+## Pos Pred Value         0.9964   0.9947   0.9971   0.9961   0.9993
+## Neg Pred Value         0.9998   0.9984   0.9988   0.9997   0.9992
 ## Prevalence             0.2845   0.1935   0.1744   0.1639   0.1838
-## Detection Rate         0.2840   0.1912   0.1737   0.1622   0.1834
-## Detection Prevalence   0.2850   0.1922   0.1767   0.1626   0.1835
-## Balanced Accuracy      0.9984   0.9934   0.9964   0.9947   0.9989
+## Detection Rate         0.2843   0.1922   0.1733   0.1637   0.1832
+## Detection Prevalence   0.2854   0.1932   0.1738   0.1643   0.1833
+## Balanced Accuracy      0.9991   0.9961   0.9968   0.9988   0.9982
 ```
 
-The random forest model is extremely powerful, correctly classifying all cases in our training data set. The algorithm produces optimal results with 30 predictors, reaching a maximum accuracy of 0.993 as illustrated by the following chart. 
+The random forest model is extremely powerful, correctly classifying all cases in our training data set. When applied to the 40% holdout from the training data, the accuracy is .9967, very close to the 1.0 accuracy that was obtained with the 5 fold cross validation against the 60% sample of the training data. The algorithm produces optimal results with 30 predictors, reaching a maximum accuracy of 0.9967 as illustrated by the following chart. 
 
 ![](index_files/figure-html/plotRFAccuracy-1.png) 
 
@@ -215,23 +221,23 @@ The final model selected by the algorithm quickly minimizes the error term, stab
 
 ![](index_files/figure-html/plotErr-1.png) 
 
-The relative importance of the variables is illustrated by the following variable importance plot. The six most important variables include `num_window`, `roll_belt`, `yaw_belt`, `roll_forearm`, `magnet_drumbell_x`, and `pitch_belt`, each of which decreases the mean node impurity by at least 600, whereas the remaining variables decrease node impurity by 350 or less, using the summed and normalized Gini Coefficient. See [Dinsdale and Edwards \(2015\)](https://dinsdalelab.sdsu.edu/metag.stats/code/randomforest.html) for additional background on the Gini Coefficient in the random forest variable importance.  
+The relative importance of the variables is illustrated by the following variable importance plot. The seven most important variables include `num_window`, `roll_belt`, `pitch_forearm`, `yaw_belt`, `magnet_drumbell_z`, `magnet_drumbell_y`, and `pitch_belt`, each of which decreases the mean node impurity by at least 500, whereas the remaining variables decrease node impurity by less than 500, using the summed and normalized Gini Coefficient. See [Dinsdale and Edwards \(2015\)](https://dinsdalelab.sdsu.edu/metag.stats/code/randomforest.html) for additional background on the Gini Coefficient in the random forest variable importance.  
 
 ![](index_files/figure-html/varImp-1.png) 
 
 ### Expected Out of Sample Error
 
-Given the accuracy level achieved via cross-validation of the model against multiple folds of the training data set, we expect the out of sample error rate to be less than 1%. Therefore, we estimate a 0.87 probability that we will correctly classify all 20 of the validation cases.  
+Given the accuracy level achieved via cross-validation of the model against multiple folds of the training data set, we expect the out of sample error rate to be less than 1%. Therefore, we estimate a 0.936 probability that we will correctly classify all 20 of the validation cases.  
 
 ## Results
 
-The results from our random forest model were excellent. Applying the model to the test data set that we held out of of the model building steps, we find that the model accurately predicts 99.45% of the test cases, incorrectly classifying only 43 of the 7,846 observations. The error rate for the test data set is only 0.55%, giving us a .9 probability that the model would correctly classify all 20 validation cases. 
+The results from our random forest model were excellent. Applying the model to the test data set that we held out of of the model building steps, we find that the model accurately predicts 99.67% of the test cases, incorrectly classifying only 26 of the 7,846 observations. The error rate for the test data set is only 0.33%, giving us a .936 probability that the model would correctly classify all 20 validation cases. 
 
 Finally, our accuracy at predicting the 20 cases in the validation data set was 100%.  All in all, a good effort for our first attempt at a random forest. 
 
 ## Appendix
 
-Note that a run of the Microsoft Word word counter on the narrative text in this report (counting text before the start of the Appendix section) results in a count of 1,309 words, well under the 2,000 word limit for the report. 
+Note that a run of the Microsoft Word word counter on the narrative text in this report (counting text before the start of the Appendix section) results in a count of 1,353 words, well under the 2,000 word limit for the report. 
 
 
 
@@ -241,137 +247,8 @@ Note that a run of the Microsoft Word word counter on the narrative text in this
 
 
 
-```
-## [1] "Train model1 took:  15.942859172821 secs"
-```
-
-```
-## Confusion Matrix and Statistics
-## 
-##           Reference
-## Prediction    A    B    C    D    E
-##          A 2826  186   40   26   75
-##          B  162 1612  191   73  180
-##          C  186  301 1678  338  153
-##          D  174  148  134 1389  153
-##          E    0   32   11  104 1604
-## 
-## Overall Statistics
-##                                           
-##                Accuracy : 0.7735          
-##                  95% CI : (0.7659, 0.7811)
-##     No Information Rate : 0.2843          
-##     P-Value [Acc > NIR] : < 2.2e-16       
-##                                           
-##                   Kappa : 0.7144          
-##  Mcnemar's Test P-Value : < 2.2e-16       
-## 
-## Statistics by Class:
-## 
-##                      Class: A Class: B Class: C Class: D Class: E
-## Sensitivity            0.8441   0.7073   0.8169   0.7197   0.7409
-## Specificity            0.9612   0.9362   0.8994   0.9381   0.9847
-## Pos Pred Value         0.8963   0.7268   0.6318   0.6952   0.9160
-## Neg Pred Value         0.9395   0.9302   0.9588   0.9447   0.9440
-## Prevalence             0.2843   0.1935   0.1744   0.1639   0.1838
-## Detection Rate         0.2400   0.1369   0.1425   0.1180   0.1362
-## Detection Prevalence   0.2677   0.1883   0.2255   0.1697   0.1487
-## Balanced Accuracy      0.9026   0.8218   0.8582   0.8289   0.8628
-```
 
 
-```
-## Random Forest 
-## 
-## 11776 samples
-##    54 predictor
-##     5 classes: 'A', 'B', 'C', 'D', 'E' 
-## 
-## No pre-processing
-## Resampling: Cross-Validated (5 fold) 
-## Summary of sample sizes: 9420, 9421, 9422, 9420, 9421 
-## Resampling results across tuning parameters:
-## 
-##   mtry  Accuracy   Kappa      Accuracy SD  Kappa SD   
-##    2    0.9882810  0.9851739  0.001768730  0.002238809
-##   30    0.9927818  0.9908692  0.002227254  0.002818055
-##   58    0.9875170  0.9842110  0.001959109  0.002477219
-## 
-## Accuracy was used to select the optimal model using  the largest value.
-## The final value used for the model was mtry = 30.
-```
-
-```
-## [1] "Train model2 took:  3.048748199145 mins"
-```
-
-```
-## Confusion Matrix and Statistics
-## 
-##           Reference
-## Prediction    A    B    C    D    E
-##          A 3348    0    0    0    0
-##          B    0 2279    0    0    0
-##          C    0    0 2054    0    0
-##          D    0    0    0 1930    0
-##          E    0    0    0    0 2165
-## 
-## Overall Statistics
-##                                      
-##                Accuracy : 1          
-##                  95% CI : (0.9997, 1)
-##     No Information Rate : 0.2843     
-##     P-Value [Acc > NIR] : < 2.2e-16  
-##                                      
-##                   Kappa : 1          
-##  Mcnemar's Test P-Value : NA         
-## 
-## Statistics by Class:
-## 
-##                      Class: A Class: B Class: C Class: D Class: E
-## Sensitivity            1.0000   1.0000   1.0000   1.0000   1.0000
-## Specificity            1.0000   1.0000   1.0000   1.0000   1.0000
-## Pos Pred Value         1.0000   1.0000   1.0000   1.0000   1.0000
-## Neg Pred Value         1.0000   1.0000   1.0000   1.0000   1.0000
-## Prevalence             0.2843   0.1935   0.1744   0.1639   0.1838
-## Detection Rate         0.2843   0.1935   0.1744   0.1639   0.1838
-## Detection Prevalence   0.2843   0.1935   0.1744   0.1639   0.1838
-## Balanced Accuracy      1.0000   1.0000   1.0000   1.0000   1.0000
-```
-
-```
-## Confusion Matrix and Statistics
-## 
-##           Reference
-## Prediction    A    B    C    D    E
-##          A 2228    7    0    1    0
-##          B    1 1500    4    0    3
-##          C    2   10 1363   11    0
-##          D    1    1    1 1273    0
-##          E    0    0    0    1 1439
-## 
-## Overall Statistics
-##                                          
-##                Accuracy : 0.9945         
-##                  95% CI : (0.9926, 0.996)
-##     No Information Rate : 0.2845         
-##     P-Value [Acc > NIR] : < 2.2e-16      
-##                                          
-##                   Kappa : 0.9931         
-##  Mcnemar's Test P-Value : NA             
-## 
-## Statistics by Class:
-## 
-##                      Class: A Class: B Class: C Class: D Class: E
-## Sensitivity            0.9982   0.9881   0.9963   0.9899   0.9979
-## Specificity            0.9986   0.9987   0.9964   0.9995   0.9998
-## Pos Pred Value         0.9964   0.9947   0.9834   0.9976   0.9993
-## Neg Pred Value         0.9993   0.9972   0.9992   0.9980   0.9995
-## Prevalence             0.2845   0.1935   0.1744   0.1639   0.1838
-## Detection Rate         0.2840   0.1912   0.1737   0.1622   0.1834
-## Detection Prevalence   0.2850   0.1922   0.1767   0.1626   0.1835
-## Balanced Accuracy      0.9984   0.9934   0.9964   0.9947   0.9989
-```
 
 
 
@@ -385,13 +262,8 @@ answers <- c("B" ,"A","B","A", "A","E", "D", "B", "A", "A",
              "B", "C", "B", "A", "E", "E", "A", "B", "B", "B")
 results <- data.frame(answers,predicted_validation)
 which(as.character(results$answers) != as.character(results$predicted_validation))
-```
 
-```
-## integer(0)
-```
 
-```r
 pml_write_files = function(x){
   n = length(x)
   for(i in 1:n){
