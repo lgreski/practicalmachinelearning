@@ -1,7 +1,7 @@
 ---
 title: "Quantified Self Project - An Exercise in Machine Learning"
 author: "Len Greski"
-date: "January 30, 2016"
+date: "January 31, 2016"
 output: 
   html_document: 
     keep_md: yes
