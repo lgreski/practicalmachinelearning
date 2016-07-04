@@ -50,7 +50,7 @@ Percentage   28%    19%    17%    16%    18%
 
 Category A represents the exercises that were completed according to specification, approximately 28% of the total number of exercises measured across the six participants in the study. Exercise quality varies significantly within and between persons, as illustrated in the following barplot. 
 
-![](index_files/figure-html/unnamed-chunk-3-1.png) 
+![](index_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
 
 A successful classification model will not only predict whether the exercise was completed correctly (classe A vs. B through E), but also correctly classify the type of error made if the exercise was completed in error. For the purposes of our assignment, our machine learning algorithm must predict the values of 20 unknown observations. Therefore, we'll need a model with over 95% accuracy in order to achieve 20 successful classifications for the 20 observations, since the probability of achieving 20 out of 20 correct predictions is $p^{20}$, and $0.95^{20} = 0.36$. At 99% accuracy, we estimate a .80 probability of 20 out of 20 matches.
 
@@ -68,7 +68,7 @@ We begin the predictive modeling exercise with a simple classification model bas
 
 
 ```
-## [1] "Train model1 took:  2.89299893379211 secs"
+## [1] "Train model1 took:  2.43909597396851 secs"
 ```
 
 ```
@@ -76,33 +76,33 @@ We begin the predictive modeling exercise with a simple classification model bas
 ## 
 ##           Reference
 ## Prediction    A    B    C    D    E
-##          A 2857  313  182   99   73
-##          B   90 1526  189   78  248
-##          C  179  297 1424  253  142
-##          D  220   71  228 1479  187
-##          E    2   72   31   21 1515
+##          A 2826  186   40   26   75
+##          B  162 1612  191   73  180
+##          C  186  301 1678  338  153
+##          D  174  148  134 1389  153
+##          E    0   32   11  104 1604
 ## 
 ## Overall Statistics
 ##                                           
-##                Accuracy : 0.7474          
-##                  95% CI : (0.7394, 0.7552)
+##                Accuracy : 0.7735          
+##                  95% CI : (0.7659, 0.7811)
 ##     No Information Rate : 0.2843          
 ##     P-Value [Acc > NIR] : < 2.2e-16       
 ##                                           
-##                   Kappa : 0.6802          
+##                   Kappa : 0.7144          
 ##  Mcnemar's Test P-Value : < 2.2e-16       
 ## 
 ## Statistics by Class:
 ## 
 ##                      Class: A Class: B Class: C Class: D Class: E
-## Sensitivity            0.8533   0.6696   0.6933   0.7663   0.6998
-## Specificity            0.9209   0.9363   0.9104   0.9283   0.9869
-## Pos Pred Value         0.8107   0.7161   0.6205   0.6769   0.9232
-## Neg Pred Value         0.9405   0.9219   0.9336   0.9530   0.9359
+## Sensitivity            0.8441   0.7073   0.8169   0.7197   0.7409
+## Specificity            0.9612   0.9362   0.8994   0.9381   0.9847
+## Pos Pred Value         0.8963   0.7268   0.6318   0.6952   0.9160
+## Neg Pred Value         0.9395   0.9302   0.9588   0.9447   0.9440
 ## Prevalence             0.2843   0.1935   0.1744   0.1639   0.1838
-## Detection Rate         0.2426   0.1296   0.1209   0.1256   0.1287
-## Detection Prevalence   0.2993   0.1810   0.1949   0.1855   0.1394
-## Balanced Accuracy      0.8871   0.8029   0.8018   0.8473   0.8433
+## Detection Rate         0.2400   0.1369   0.1425   0.1180   0.1362
+## Detection Prevalence   0.2677   0.1883   0.2255   0.1697   0.1487
+## Balanced Accuracy      0.9026   0.8218   0.8582   0.8289   0.8628
 ```
 
 The model has an overall accuracy of 75%, with the highest sensitivity being .85 for classifying an exercise as class A when it is indeed A. The model performs worst on class B, with only 67% sensitivity. The confusion matrix illustrates that a classification model based on linear discriminant analysis does not have sufficient accuracy for us to expect perfect or near-perfect classification of our unknown validation cases.
@@ -117,7 +117,21 @@ The random forest technique generates multiple predictive models, and aggregates
 
 ```
 ## randomForest 4.6-12
+```
+
+```
 ## Type rfNews() to see new features/changes/bug fixes.
+```
+
+```
+## 
+## Attaching package: 'randomForest'
+```
+
+```
+## The following object is masked from 'package:ggplot2':
+## 
+##     margin
 ```
 
 ```
@@ -129,20 +143,20 @@ The random forest technique generates multiple predictive models, and aggregates
 ## 
 ## No pre-processing
 ## Resampling: Cross-Validated (5 fold) 
-## Summary of sample sizes: 9421, 9421, 9420, 9420, 9422 
+## Summary of sample sizes: 9420, 9420, 9420, 9422, 9422 
 ## Resampling results across tuning parameters:
 ## 
-##   mtry  Accuracy   Kappa      Accuracy SD  Kappa SD   
-##    2    0.9910840  0.9887199  0.003045889  0.003854898
-##   30    0.9951599  0.9938775  0.001912542  0.002419723
-##   58    0.9909988  0.9886140  0.002589275  0.003277312
+##   mtry  Accuracy   Kappa    
+##    2    0.9878570  0.9846366
+##   30    0.9932913  0.9915143
+##   58    0.9880262  0.9848539
 ## 
 ## Accuracy was used to select the optimal model using  the largest value.
 ## The final value used for the model was mtry = 30.
 ```
 
 ```
-## [1] "Train model2 took:  6.13052060206731 mins"
+## [1] "Train model2 took:  5.8085341334343 mins"
 ```
 
 ```
@@ -188,46 +202,46 @@ The random forest technique generates multiple predictive models, and aggregates
 ## 
 ##           Reference
 ## Prediction    A    B    C    D    E
-##          A 2231    8    0    0    0
-##          B    0 1508    8    0    0
-##          C    0    2 1360    2    0
-##          D    0    0    0 1284    5
-##          E    1    0    0    0 1437
+##          A 2228    7    0    2    0
+##          B    1 1502    5    0    3
+##          C    2    8 1362   11    0
+##          D    1    1    1 1272    0
+##          E    0    0    0    1 1439
 ## 
 ## Overall Statistics
-##                                           
-##                Accuracy : 0.9967          
-##                  95% CI : (0.9951, 0.9978)
-##     No Information Rate : 0.2845          
-##     P-Value [Acc > NIR] : < 2.2e-16       
-##                                           
-##                   Kappa : 0.9958          
-##  Mcnemar's Test P-Value : NA              
+##                                          
+##                Accuracy : 0.9945         
+##                  95% CI : (0.9926, 0.996)
+##     No Information Rate : 0.2845         
+##     P-Value [Acc > NIR] : < 2.2e-16      
+##                                          
+##                   Kappa : 0.9931         
+##  Mcnemar's Test P-Value : NA             
 ## 
 ## Statistics by Class:
 ## 
 ##                      Class: A Class: B Class: C Class: D Class: E
-## Sensitivity            0.9996   0.9934   0.9942   0.9984   0.9965
-## Specificity            0.9986   0.9987   0.9994   0.9992   0.9998
-## Pos Pred Value         0.9964   0.9947   0.9971   0.9961   0.9993
-## Neg Pred Value         0.9998   0.9984   0.9988   0.9997   0.9992
+## Sensitivity            0.9982   0.9895   0.9956   0.9891   0.9979
+## Specificity            0.9984   0.9986   0.9968   0.9995   0.9998
+## Pos Pred Value         0.9960   0.9940   0.9848   0.9976   0.9993
+## Neg Pred Value         0.9993   0.9975   0.9991   0.9979   0.9995
 ## Prevalence             0.2845   0.1935   0.1744   0.1639   0.1838
-## Detection Rate         0.2843   0.1922   0.1733   0.1637   0.1832
-## Detection Prevalence   0.2854   0.1932   0.1738   0.1643   0.1833
-## Balanced Accuracy      0.9991   0.9961   0.9968   0.9988   0.9982
+## Detection Rate         0.2840   0.1914   0.1736   0.1621   0.1834
+## Detection Prevalence   0.2851   0.1926   0.1763   0.1625   0.1835
+## Balanced Accuracy      0.9983   0.9940   0.9962   0.9943   0.9989
 ```
 
 The random forest model is extremely powerful, correctly classifying all cases in our training data set. When applied to the 40% holdout from the training data, the accuracy is .9967, very close to the 1.0 accuracy that was obtained with the 5 fold cross validation against the 60% sample of the training data. The algorithm produces optimal results with 30 predictors, reaching a maximum accuracy of approximately 0.995 as illustrated by the following chart. 
 
-![](index_files/figure-html/plotRFAccuracy-1.png) 
+![](index_files/figure-html/plotRFAccuracy-1.png)<!-- -->
 
 The final model selected by the algorithm quickly minimizes the error term, stabilizing below 0.02 after approximately 50 trees. As trees are added beyond 50, they do not appear to meaningfully reduce the error. There is also little variability in the error term across folds, as illustrated by the following plot. 
 
-![](index_files/figure-html/plotErr-1.png) 
+![](index_files/figure-html/plotErr-1.png)<!-- -->
 
 The relative importance of the variables is illustrated by the following variable importance plot. The seven most important variables include `num_window`, `roll_belt`, `pitch_forearm`, `yaw_belt`, `magnet_drumbell_z`, `magnet_drumbell_y`, and `pitch_belt`, each of which decreases the mean node impurity by at least 500, whereas the remaining variables decrease node impurity by less than 500, using the summed and normalized Gini Coefficient. See [Dinsdale and Edwards \(2015\)](https://dinsdalelab.sdsu.edu/metag.stats/code/randomforest.html) for additional background on the Gini Coefficient in the random forest variable importance.  
 
-![](index_files/figure-html/varImp-1.png) 
+![](index_files/figure-html/varImp-1.png)<!-- -->
 
 ### Expected Out of Sample Error
 
@@ -244,15 +258,113 @@ Finally, our accuracy at predicting the 20 cases in the validation data set was 
 Note that a run of the Microsoft Word word counter on the narrative text in this report (counting text before the start of the Appendix section) results in a count of 1,353 words, well under the 2,000 word limit for the report. 
 
 
+```r
+theFiles <- c("pml-testing.csv","pml-training.csv")
+theDirectory <- "./data/"
+dlMethod <- "curl"
+if(substr(Sys.getenv("OS"),1,7) == "Windows") dlMethod <- "wininet"
+if(!dir.exists(theDirectory)) dir.create(theDirectory)
+for (i in 1:length(theFiles)) {
+     aFile <- paste(theDirectory,theFiles[i],sep="")
+     if (!file.exists(aFile)) {
+          url <- paste("https://d396qusza40orc.cloudfront.net/predmachlearn/",
+                       theFiles[i],
+                       sep="")
+          download.file(url,destfile=aFile,
+                        method=dlMethod,
+                        mode="w") # use mode "w" for text 
+     }
+}
+```
 
 
 
+```r
+library(lattice)
+library(MASS)
+library(ggplot2)
+library(grid)
+library(readr)
+library(knitr)
+library(caret)
+library(YaleToolkit)
+string40 <-  "ncnnccnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn"
+string80 <-  "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn"
+string120 <- "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn"
+string160 <- "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnc"
+colString <- paste(string40,string80,string120,string160,sep="")
+
+validation <- readr::read_csv("./data/pml-testing.csv",
+     col_names=TRUE,
+     col_types=colString)
+originalData <- readr::read_csv("./data/pml-training.csv",
+     col_names=TRUE,
+     col_types=colString)
+# fix missing colunm name for "observation / row number"
+theColNames <- colnames(originalData)
+theColNames[1] <- "obs"
+colnames(originalData) <- theColNames
+
+originalData$classe <- as.factor(originalData$classe)
+valResult <- whatis(originalData)
+# retain all columns with fewer than 50 missing values
+theNames <- as.character(valResult[valResult$missing < 50 & valResult$variable.name != "obs",1])
+originalSubset <- originalData[,theNames]
+# remove date variables and binary window 
+originalSubset <- originalSubset[c(-2,-3,-4,-5)]
+# valSubset <- whatis(originalSubset)
+set.seed(102134)
+trainIndex <- createDataPartition(originalSubset$classe,p=.60,list=FALSE)
+training <- originalSubset[trainIndex,]
+testing <- originalSubset[-trainIndex,]
+```
 
 
+```r
+library(iterators)
+library(parallel)
+library(foreach)
+library(doParallel)
+cluster <- makeCluster(detectCores())
+registerDoParallel(cluster)
+```
 
 
+```r
+yvars <- training[,55]
+xvars <- training[,-55]
+intervalStart <- Sys.time()
+mod1Control <- trainControl(method="cv",number=5,allowParallel=TRUE)
+# modFit1 <- train(x=xvars,y=yvars,method="rpart",trControl=mod1Control)
+modFit1 <- train(classe ~ .,data=training,method="lda",trControl=mod1Control)
+# Model 1
+intervalEnd <- Sys.time()
+paste("Train model1 took: ",intervalEnd - intervalStart,attr(intervalEnd - intervalStart,"units"))
+pred1 <- predict(modFit1,training)
+confusionMatrix(pred1,training$classe)
+# predicted_test <- predict(modFit1,testing)
+# confusionMatrix(predicted_test,testing$classe)
+# predicted_validation <- predict(modFit,validation)
+```
 
 
+```r
+library(randomForest)
+intervalStart <- Sys.time()
+mod2Control <- trainControl(method="cv",number=5,allowParallel=TRUE)
+modFit2 <- train(classe ~ .,data=training,method="rf",trControl=mod2Control)
+intervalEnd <- Sys.time()
+print(modFit2)
+paste("Train model2 took: ",intervalEnd - intervalStart,attr(intervalEnd - intervalStart,"units"))
+                                                                
+ 
+pred2 <- predict(modFit2,training)
+ 
+confusionMatrix(pred2,training$classe)
+message("Predict & estimate out of sample error on data held back from training data set.") 
+predicted_test <- predict(modFit2,testing)
+confusionMatrix(predicted_test,testing$classe)
+```
 
 
 
