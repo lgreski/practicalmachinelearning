@@ -141,7 +141,7 @@ Finally, our accuracy at predicting the 20 cases in the validation data set was 
 
 Note that a run of the Microsoft Word word counter on the narrative text in this report (counting text before the start of the Appendix section) results in a count of 1,353 words, well under the 2,000 word limit for the report. 
 
-```{r dataDownload, echo=FALSE, warning=FALSE, eval=FALSE}
+```{r dataDownload, echo=TRUE, warning=FALSE, eval=FALSE}
 theFiles <- c("pml-testing.csv","pml-training.csv")
 theDirectory <- "./data/"
 dlMethod <- "curl"
@@ -161,7 +161,7 @@ for (i in 1:length(theFiles)) {
 ```
 
 
-```{r readData, echo=FALSE, warning=FALSE, eval=FALSE}
+```{r readData, echo=TRUE, warning=FALSE, eval=FALSE}
 library(lattice)
 library(MASS)
 library(ggplot2)
@@ -202,7 +202,7 @@ testing <- originalSubset[-trainIndex,]
 
 ```
 
-```{r useParallel, echo=FALSE, warning=FALSE, eval=FALSE}
+```{r useParallel, echo=TRUE, warning=FALSE, eval=FALSE}
 library(iterators)
 library(parallel)
 library(foreach)
@@ -212,7 +212,7 @@ registerDoParallel(cluster)
 
 ```
 
-```{r buildModel1, echo=FALSE, warning=FALSE, cache=TRUE, eval=FALSE}
+```{r buildModel1, echo=TRUE, warning=FALSE,eval=FALSE}
 yvars <- training[,55]
 xvars <- training[,-55]
 intervalStart <- Sys.time()
@@ -229,7 +229,7 @@ confusionMatrix(pred1,training$classe)
 # predicted_validation <- predict(modFit,validation)
 ```
 
-```{r buildModel2, echo=FALSE, warning=FALSE, cache=TRUE, eval=FALSE}
+```{r buildModel2, echo=TRUE, warning=FALSE, eval=FALSE}
 library(randomForest)
 intervalStart <- Sys.time()
 mod2Control <- trainControl(method="cv",number=5,allowParallel=TRUE)
