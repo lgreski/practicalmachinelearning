@@ -8,11 +8,11 @@ January 31, 2016
 
 ## Executive Summary
 
-Classification of data from the [Qualitative Activity Recognition of Weight Lifting Exercises](http://groupware.les.inf.puc-rio.br/work.jsf?p1=11201) study to predict exercise quality for unknown observations from the study resulted in a 100% accuracy rate with a random forest technique. Key findings included:
+Classification of data from the [Qualitative Activity Recognition of Weight Lifting Exercises](https://github.com/lgreski/practicalmachinelearning/blob/gh-pages/2013.Velloso.QAR-WLE.pdf) study to predict exercise quality for unknown observations from the study resulted in a 100% accuracy rate with a random forest technique. Key findings included:
 
 * Fully 62.5% of the data in the dataset was unusable, due to the high rates of missing values,
 * Of the remaining 60 variables, 54 were used to predict the values of the quality variable, `classe`, and
-* A random forest model with 30 variables achieved 99.45% accuracy, correctly identifying 20 out of 20 unknown test cases. 
+* A random forest model with 30 variables achieved 99.71% accuracy, correctly identifying 20 out of 20 unknown test cases. 
 
 ## Online Versions
 
@@ -68,7 +68,7 @@ We begin the predictive modeling exercise with a simple classification model bas
 
 
 ```
-## [1] "Train model1 took:  2.43909597396851 secs"
+## [1] "Train model1 took:  3.49021577835083 secs"
 ```
 
 ```
@@ -76,33 +76,33 @@ We begin the predictive modeling exercise with a simple classification model bas
 ## 
 ##           Reference
 ## Prediction    A    B    C    D    E
-##          A 2826  186   40   26   75
-##          B  162 1612  191   73  180
-##          C  186  301 1678  338  153
-##          D  174  148  134 1389  153
-##          E    0   32   11  104 1604
+##          A 2857  313  182   99   73
+##          B   90 1526  189   78  248
+##          C  179  297 1424  253  142
+##          D  220   71  228 1479  187
+##          E    2   72   31   21 1515
 ## 
 ## Overall Statistics
 ##                                           
-##                Accuracy : 0.7735          
-##                  95% CI : (0.7659, 0.7811)
+##                Accuracy : 0.7474          
+##                  95% CI : (0.7394, 0.7552)
 ##     No Information Rate : 0.2843          
 ##     P-Value [Acc > NIR] : < 2.2e-16       
 ##                                           
-##                   Kappa : 0.7144          
+##                   Kappa : 0.6802          
 ##  Mcnemar's Test P-Value : < 2.2e-16       
 ## 
 ## Statistics by Class:
 ## 
 ##                      Class: A Class: B Class: C Class: D Class: E
-## Sensitivity            0.8441   0.7073   0.8169   0.7197   0.7409
-## Specificity            0.9612   0.9362   0.8994   0.9381   0.9847
-## Pos Pred Value         0.8963   0.7268   0.6318   0.6952   0.9160
-## Neg Pred Value         0.9395   0.9302   0.9588   0.9447   0.9440
+## Sensitivity            0.8533   0.6696   0.6933   0.7663   0.6998
+## Specificity            0.9209   0.9363   0.9104   0.9283   0.9869
+## Pos Pred Value         0.8107   0.7161   0.6205   0.6769   0.9232
+## Neg Pred Value         0.9405   0.9219   0.9336   0.9530   0.9359
 ## Prevalence             0.2843   0.1935   0.1744   0.1639   0.1838
-## Detection Rate         0.2400   0.1369   0.1425   0.1180   0.1362
-## Detection Prevalence   0.2677   0.1883   0.2255   0.1697   0.1487
-## Balanced Accuracy      0.9026   0.8218   0.8582   0.8289   0.8628
+## Detection Rate         0.2426   0.1296   0.1209   0.1256   0.1287
+## Detection Prevalence   0.2993   0.1810   0.1949   0.1855   0.1394
+## Balanced Accuracy      0.8871   0.8029   0.8018   0.8473   0.8433
 ```
 
 The model has an overall accuracy of 75%, with the highest sensitivity being .85 for classifying an exercise as class A when it is indeed A. The model performs worst on class B, with only 67% sensitivity. The confusion matrix illustrates that a classification model based on linear discriminant analysis does not have sufficient accuracy for us to expect perfect or near-perfect classification of our unknown validation cases.
@@ -143,20 +143,20 @@ The random forest technique generates multiple predictive models, and aggregates
 ## 
 ## No pre-processing
 ## Resampling: Cross-Validated (5 fold) 
-## Summary of sample sizes: 9420, 9420, 9420, 9422, 9422 
+## Summary of sample sizes: 9420, 9420, 9423, 9421, 9420 
 ## Resampling results across tuning parameters:
 ## 
 ##   mtry  Accuracy   Kappa    
-##    2    0.9878570  0.9846366
-##   30    0.9932913  0.9915143
-##   58    0.9880262  0.9848539
+##    2    0.9904033  0.9878600
+##   30    0.9948199  0.9934474
+##   58    0.9903188  0.9877532
 ## 
 ## Accuracy was used to select the optimal model using  the largest value.
 ## The final value used for the model was mtry = 30.
 ```
 
 ```
-## [1] "Train model2 took:  5.8085341334343 mins"
+## [1] "Train model2 took:  6.16253748337428 mins"
 ```
 
 ```
@@ -202,36 +202,36 @@ The random forest technique generates multiple predictive models, and aggregates
 ## 
 ##           Reference
 ## Prediction    A    B    C    D    E
-##          A 2228    7    0    2    0
-##          B    1 1502    5    0    3
-##          C    2    8 1362   11    0
-##          D    1    1    1 1272    0
-##          E    0    0    0    1 1439
+##          A 2231    7    0    0    0
+##          B    0 1510    6    0    0
+##          C    0    1 1362    3    0
+##          D    0    0    0 1283    5
+##          E    1    0    0    0 1437
 ## 
 ## Overall Statistics
-##                                          
-##                Accuracy : 0.9945         
-##                  95% CI : (0.9926, 0.996)
-##     No Information Rate : 0.2845         
-##     P-Value [Acc > NIR] : < 2.2e-16      
-##                                          
-##                   Kappa : 0.9931         
-##  Mcnemar's Test P-Value : NA             
+##                                           
+##                Accuracy : 0.9971          
+##                  95% CI : (0.9956, 0.9981)
+##     No Information Rate : 0.2845          
+##     P-Value [Acc > NIR] : < 2.2e-16       
+##                                           
+##                   Kappa : 0.9963          
+##  Mcnemar's Test P-Value : NA              
 ## 
 ## Statistics by Class:
 ## 
 ##                      Class: A Class: B Class: C Class: D Class: E
-## Sensitivity            0.9982   0.9895   0.9956   0.9891   0.9979
-## Specificity            0.9984   0.9986   0.9968   0.9995   0.9998
-## Pos Pred Value         0.9960   0.9940   0.9848   0.9976   0.9993
-## Neg Pred Value         0.9993   0.9975   0.9991   0.9979   0.9995
+## Sensitivity            0.9996   0.9947   0.9956   0.9977   0.9965
+## Specificity            0.9988   0.9991   0.9994   0.9992   0.9998
+## Pos Pred Value         0.9969   0.9960   0.9971   0.9961   0.9993
+## Neg Pred Value         0.9998   0.9987   0.9991   0.9995   0.9992
 ## Prevalence             0.2845   0.1935   0.1744   0.1639   0.1838
-## Detection Rate         0.2840   0.1914   0.1736   0.1621   0.1834
-## Detection Prevalence   0.2851   0.1926   0.1763   0.1625   0.1835
-## Balanced Accuracy      0.9983   0.9940   0.9962   0.9943   0.9989
+## Detection Rate         0.2843   0.1925   0.1736   0.1635   0.1832
+## Detection Prevalence   0.2852   0.1932   0.1741   0.1642   0.1833
+## Balanced Accuracy      0.9992   0.9969   0.9975   0.9985   0.9982
 ```
 
-The random forest model is extremely powerful, correctly classifying all cases in our training data set. When applied to the 40% holdout from the training data, the accuracy is .9967, very close to the 1.0 accuracy that was obtained with the 5 fold cross validation against the 60% sample of the training data. The algorithm produces optimal results with 30 predictors, reaching a maximum accuracy of approximately 0.995 as illustrated by the following chart. 
+The random forest model is extremely powerful, correctly classifying all cases in our training data set. When applied to the 40% holdout from the training data, the accuracy is .9971, very close to the 1.0 accuracy that was obtained with the 5 fold cross validation against the 60% sample of the training data. The algorithm produces optimal results with 30 predictors, reaching a maximum accuracy of approximately 0.995 as illustrated by the following chart. 
 
 ![](index_files/figure-html/plotRFAccuracy-1.png)<!-- -->
 
@@ -249,7 +249,7 @@ Given the accuracy level achieved via cross-validation of the model against mult
 
 ## Results
 
-The results from our random forest model were excellent. Applying the model to the test data set that we held out of of the model building steps, we find that the model accurately predicts 99.67% of the test cases, incorrectly classifying only 26 of the 7,846 observations. The error rate for the test data set is only 0.33%, giving us a .936 probability that the model would correctly classify all 20 validation cases. 
+The results from our random forest model were excellent. Applying the model to the test data set that we held out of of the model building steps, we find that the model accurately predicts 99.71% of the test cases, incorrectly classifying only 23 of the 7,846 observations. The error rate for the test data set is only 0.29%, giving us a .944 probability that the model would correctly classify all 20 validation cases. 
 
 Finally, our accuracy at predicting the 20 cases in the validation data set was 100%.  All in all, a good effort for our first attempt at a random forest. 
 
