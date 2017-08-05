@@ -1,0 +1,12 @@
+base
+readr
+knitr
+lattice
+ggplot2
+caret
+YaleToolkit
+foreach
+iterators
+doParallel
+MASS
+randomForest
