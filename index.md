@@ -68,7 +68,7 @@ We begin the predictive modeling exercise with a simple classification model bas
 
 
 ```
-## [1] "Train model1 took:  3.49021577835083 secs"
+## [1] "Train model1 took:  3.18626594543457 secs"
 ```
 
 ```
@@ -116,22 +116,8 @@ The random forest technique generates multiple predictive models, and aggregates
 
 
 ```
-## randomForest 4.6-12
-```
-
-```
-## Type rfNews() to see new features/changes/bug fixes.
-```
-
-```
-## 
-## Attaching package: 'randomForest'
-```
-
-```
-## The following object is masked from 'package:ggplot2':
-## 
-##     margin
+##    user  system elapsed 
+##   46.21    0.33  377.27
 ```
 
 ```
@@ -143,20 +129,20 @@ The random forest technique generates multiple predictive models, and aggregates
 ## 
 ## No pre-processing
 ## Resampling: Cross-Validated (5 fold) 
-## Summary of sample sizes: 9420, 9420, 9423, 9421, 9420 
+## Summary of sample sizes: 9420, 9421, 9420, 9423, 9420 
 ## Resampling results across tuning parameters:
 ## 
 ##   mtry  Accuracy   Kappa    
-##    2    0.9904033  0.9878600
-##   30    0.9948199  0.9934474
-##   58    0.9903188  0.9877532
+##    2    0.9910838  0.9887205
+##   30    0.9953294  0.9940922
+##   58    0.9923575  0.9903324
 ## 
-## Accuracy was used to select the optimal model using  the largest value.
+## Accuracy was used to select the optimal model using the largest value.
 ## The final value used for the model was mtry = 30.
 ```
 
 ```
-## [1] "Train model2 took:  6.16253748337428 mins"
+## [1] "Train model2 took:  6.29260436693827 mins"
 ```
 
 ```
@@ -202,36 +188,36 @@ The random forest technique generates multiple predictive models, and aggregates
 ## 
 ##           Reference
 ## Prediction    A    B    C    D    E
-##          A 2231    7    0    0    0
-##          B    0 1510    6    0    0
+##          A 2231    8    0    0    0
+##          B    0 1509    6    0    0
 ##          C    0    1 1362    3    0
-##          D    0    0    0 1283    5
-##          E    1    0    0    0 1437
+##          D    0    0    0 1283    6
+##          E    1    0    0    0 1436
 ## 
 ## Overall Statistics
 ##                                           
-##                Accuracy : 0.9971          
-##                  95% CI : (0.9956, 0.9981)
+##                Accuracy : 0.9968          
+##                  95% CI : (0.9953, 0.9979)
 ##     No Information Rate : 0.2845          
 ##     P-Value [Acc > NIR] : < 2.2e-16       
 ##                                           
-##                   Kappa : 0.9963          
+##                   Kappa : 0.996           
 ##  Mcnemar's Test P-Value : NA              
 ## 
 ## Statistics by Class:
 ## 
 ##                      Class: A Class: B Class: C Class: D Class: E
-## Sensitivity            0.9996   0.9947   0.9956   0.9977   0.9965
-## Specificity            0.9988   0.9991   0.9994   0.9992   0.9998
-## Pos Pred Value         0.9969   0.9960   0.9971   0.9961   0.9993
-## Neg Pred Value         0.9998   0.9987   0.9991   0.9995   0.9992
+## Sensitivity            0.9996   0.9941   0.9956   0.9977   0.9958
+## Specificity            0.9986   0.9991   0.9994   0.9991   0.9998
+## Pos Pred Value         0.9964   0.9960   0.9971   0.9953   0.9993
+## Neg Pred Value         0.9998   0.9986   0.9991   0.9995   0.9991
 ## Prevalence             0.2845   0.1935   0.1744   0.1639   0.1838
-## Detection Rate         0.2843   0.1925   0.1736   0.1635   0.1832
-## Detection Prevalence   0.2852   0.1932   0.1741   0.1642   0.1833
-## Balanced Accuracy      0.9992   0.9969   0.9975   0.9985   0.9982
+## Detection Rate         0.2843   0.1923   0.1736   0.1635   0.1830
+## Detection Prevalence   0.2854   0.1931   0.1741   0.1643   0.1832
+## Balanced Accuracy      0.9991   0.9966   0.9975   0.9984   0.9978
 ```
 
-The random forest model is extremely powerful, correctly classifying all cases in our training data set. When applied to the 40% holdout from the training data, the accuracy is .9971, very close to the 1.0 accuracy that was obtained with the 5 fold cross validation against the 60% sample of the training data. The algorithm produces optimal results with 30 predictors, reaching a maximum accuracy of approximately 0.995 as illustrated by the following chart. 
+The random forest model is extremely powerful, correctly classifying all cases in our training data set. When applied to the 40% holdout from the training data, the accuracy is .9968, very close to the 1.0 accuracy that was obtained with the 5 fold cross validation against the 60% sample of the training data. The algorithm produces optimal results with 30 predictors, reaching a maximum accuracy of approximately 0.995 as illustrated by the following chart. 
 
 ![](index_files/figure-html/plotRFAccuracy-1.png)<!-- -->
 
@@ -249,7 +235,7 @@ Given the accuracy level achieved via cross-validation of the model against mult
 
 ## Results
 
-The results from our random forest model were excellent. Applying the model to the test data set that we held out of of the model building steps, we find that the model accurately predicts 99.71% of the test cases, incorrectly classifying only 23 of the 7,846 observations. The error rate for the test data set is only 0.29%, giving us a .944 probability that the model would correctly classify all 20 validation cases. 
+The results from our random forest model were excellent. Applying the model to the test data set that we held out of of the model building steps, we find that the model accurately predicts 99.68% of the test cases, incorrectly classifying only 23 of the 7,846 observations. The error rate for the test data set is only 0.32%, giving us a .938 probability that the model would correctly classify all 20 validation cases. 
 
 Finally, our accuracy at predicting the 20 cases in the validation data set was 100%.  All in all, a good effort for our first attempt at a random forest. 
 
@@ -280,14 +266,14 @@ for (i in 1:length(theFiles)) {
 
 
 ```r
-library(lattice)
-library(MASS)
-library(ggplot2)
-library(grid)
-library(readr)
-library(knitr)
-library(caret)
-library(YaleToolkit)
+library(lattice,quietly=TRUE)
+library(MASS,quietly=TRUE)
+library(ggplot2,quietly=TRUE)
+library(grid,quietly=TRUE)
+library(readr,quietly=TRUE)
+library(knitr,quietly=TRUE)
+library(caret,quietly=TRUE)
+library(YaleToolkit,quietly=TRUE)
 string40 <-  "ncnnccnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn"
 string80 <-  "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn"
 string120 <- "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn"
@@ -321,11 +307,11 @@ testing <- originalSubset[-trainIndex,]
 
 
 ```r
-library(iterators)
-library(parallel)
-library(foreach)
-library(doParallel)
-cluster <- makeCluster(detectCores())
+library(iterators,quietly=TRUE)
+library(parallel,quietly=TRUE)
+library(foreach,quietly=TRUE)
+library(doParallel,quietly=TRUE)
+cluster <- makeCluster(detectCores()-1)
 registerDoParallel(cluster)
 ```
 
@@ -349,10 +335,10 @@ confusionMatrix(pred1,training$classe)
 
 
 ```r
-library(randomForest)
+suppressPackageStartupMessages(library(randomForest,quietly=TRUE))
 intervalStart <- Sys.time()
 mod2Control <- trainControl(method="cv",number=5,allowParallel=TRUE)
-modFit2 <- train(classe ~ .,data=training,method="rf",trControl=mod2Control)
+system.time(modFit2 <- train(classe ~ .,data=training,method="rf",trControl=mod2Control))
 intervalEnd <- Sys.time()
 print(modFit2)
 paste("Train model2 took: ",intervalEnd - intervalStart,attr(intervalEnd - intervalStart,"units"))
@@ -389,6 +375,60 @@ pml_write_files = function(x){
 }
 predicted_chars <- as.character(predicted_validation)
 pml_write_files(predicted_chars)
+```
+
+
+```r
+sessionInfo()
+```
+
+```
+## R version 3.4.2 (2017-09-28)
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
+## Running under: Windows 10 x64 (build 15063)
+## 
+## Matrix products: default
+## 
+## locale:
+## [1] LC_COLLATE=English_United States.1252 
+## [2] LC_CTYPE=English_United States.1252   
+## [3] LC_MONETARY=English_United States.1252
+## [4] LC_NUMERIC=C                          
+## [5] LC_TIME=English_United States.1252    
+## 
+## attached base packages:
+## [1] parallel  grid      stats     graphics  grDevices utils     datasets 
+## [8] methods   base     
+## 
+## other attached packages:
+##  [1] randomForest_4.6-12 doParallel_1.0.11   foreach_1.4.3      
+##  [4] iterators_1.0.8     YaleToolkit_4.2.2   caret_6.0-77.9000  
+##  [7] knitr_1.17          readr_1.1.1         ggplot2_2.2.1      
+## [10] MASS_7.3-47         lattice_0.20-35    
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_0.12.13       lubridate_1.6.0    tidyr_0.7.2       
+##  [4] class_7.3-14       assertthat_0.2.0   rprojroot_1.2     
+##  [7] digest_0.6.12      ipred_0.9-6        psych_1.7.8       
+## [10] R6_2.2.2           plyr_1.8.4         backports_1.1.1   
+## [13] stats4_3.4.2       e1071_1.6-8        evaluate_0.10.1   
+## [16] highr_0.6          rlang_0.1.2        lazyeval_0.2.0    
+## [19] kernlab_0.9-25     rpart_4.1-11       Matrix_1.2-11     
+## [22] rmarkdown_1.6      splines_3.4.2      CVST_0.2-1        
+## [25] ddalpha_1.3.1      gower_0.1.2        stringr_1.2.0     
+## [28] foreign_0.8-69     munsell_0.4.3      broom_0.4.2       
+## [31] compiler_3.4.2     pkgconfig_2.0.1    mnormt_1.5-5      
+## [34] dimRed_0.1.0       htmltools_0.3.6    nnet_7.3-12       
+## [37] tidyselect_0.2.2   tibble_1.3.4       prodlim_1.6.1     
+## [40] DRR_0.0.2          codetools_0.2-15   RcppRoll_0.2.2    
+## [43] withr_2.0.0        dplyr_0.7.4        recipes_0.1.0.9000
+## [46] ModelMetrics_1.1.0 nlme_3.1-131       gtable_0.2.0      
+## [49] magrittr_1.5       scales_0.5.0       stringi_1.1.5     
+## [52] reshape2_1.4.2     bindrcpp_0.2       timeDate_3012.100 
+## [55] robustbase_0.92-7  lava_1.5.1         tools_3.4.2       
+## [58] glue_1.1.1         DEoptimR_1.0-8     purrr_0.2.4       
+## [61] sfsmisc_1.1-1      hms_0.3            survival_2.41-3   
+## [64] yaml_2.1.14        colorspace_1.3-2   bindr_0.1
 ```
 
 # References
