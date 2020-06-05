@@ -90,12 +90,16 @@ The model has an overall accuracy of 77%, with the highest sensitivity being .84
 The random forest technique generates multiple predictive models, and aggregates them to create a final result. Random forests have a high degree of predictive power, and can be tuned according to a variety of parameters, including a range of choices from k-fold cross validation to leave one out bootstrapping. As we did with the linear discriminant analysis, we use k-fold cross validation with five folds. 
 
 ```{r ref.label="useParallel", echo=FALSE}
-# run LDA model 
+# turn on parallel processing 
 ```
 
 
 ```{r ref.label="buildModel2", echo=FALSE}
-# run LDA model 
+# run randomForest model 
+```
+
+```{r ref.label = "termParallel", echo = FALSE}
+ # stop parallel processing 
 ```
 
 The random forest model is extremely powerful, correctly classifying all cases in our training data set. The algorithm produces optimal results with 30 predictors, reaching a maximum accuracy of 9.993 as illustrated by the following chart. 
@@ -133,7 +137,7 @@ Finally, our accuracy at predicting the 20 cases in the validation data set was 
 
 ## Appendix
 
-```{r dataDownload, echo=FALSE}
+```{r dataDownload, echo=FALSE,eval = FALSE}
 theFiles <- c("pml-testing.csv","pml-training.csv")
 theDirectory <- "./data/"
 dlMethod <- "curl"
@@ -153,7 +157,7 @@ for (i in 1:length(theFiles)) {
 ```
 
 
-```{r readData, echo=FALSE}
+```{r readData, echo=TRUE, eval = FALSE}
 library(lattice)
 library(MASS)
 library(ggplot2)
@@ -174,7 +178,7 @@ validation <- readr::read_csv("./data/pml-testing.csv",
 originalData <- readr::read_csv("./data/pml-training.csv",
      col_names=TRUE,
      col_types=colString)
-# fix missing colunm name for "observation / row number"
+# fix missing column name for "observation / row number"
 theColNames <- colnames(originalData)
 theColNames[1] <- "obs"
 colnames(originalData) <- theColNames
@@ -194,7 +198,7 @@ testing <- originalSubset[-trainIndex,]
 
 ```
 
-```{r useParallel, echo=FALSE}
+```{r useParallel, echo=TRUE,eval = FALSE}
 library(iterators)
 library(parallel)
 library(foreach)
@@ -204,7 +208,7 @@ registerDoParallel(cluster)
 
 ```
 
-```{r buildModel1, echo=FALSE, cache=TRUE}
+```{r buildModel1, echo=TRUE, cache=TRUE,eval = FALSE}
 yvars <- training[,55]
 xvars <- training[,-55]
 intervalStart <- Sys.time()
@@ -221,10 +225,10 @@ confusionMatrix(pred1,training$classe)
 # predicted_validation <- predict(modFit,validation)
 ```
 
-```{r buildModel2, echo=FALSE, cache=TRUE}
+```{r buildModel2, echo=TRUE, cache=TRUE,eval = FALSE}
 library(randomForest)
 intervalStart <- Sys.time()
-mod2Control <- trainControl(method="cv",number=5,allowParallel=TRUE)
+mod2Control <- trainControl(method="boot",number=25,allowParallel=TRUE)
 modFit2 <- train(classe ~ .,data=training,method="rf",trControl=mod2Control)
 intervalEnd <- Sys.time()
 print(modFit2)
@@ -242,7 +246,7 @@ confusionMatrix(predicted_test,testing$classe)
 
 
 
-```{r writeFiles, echo=TRUE}
+```{r writeFiles, echo=TRUE,eval = FALSE}
 # generate predictions on validation data set 
 predicted_validation <- predict(modFit2,validation)
 # compare to correct answers as validated by submitting the individual files to Coursera for
@@ -264,6 +268,13 @@ predicted_chars <- as.character(predicted_validation)
 pml_write_files(predicted_chars)
 
 ```
+
+```{r termParallel,echo = FALSE,eval = FALSE}
+   stopCluster(cluster)
+   registerDoSEQ()
+
+```
+
 
 # References
 
