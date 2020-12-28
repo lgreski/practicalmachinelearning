@@ -158,6 +158,11 @@ for (i in 1:length(theFiles)) {
 
 
 ```{r readData, echo=TRUE, eval = FALSE}
+pkgs <- c("lattice","MASS","ggplot2","grid","readr","knitr","caret","YaleToolkit")
+notInstalled <- pkgs[!(pkgs %in% installed.packages())]
+if(sum(!(pkgs %in% installed.packages())) > 0) {
+  for(i in notInstalled) install.packages(i)
+}
 library(lattice)
 library(MASS)
 library(ggplot2)
