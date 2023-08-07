@@ -102,7 +102,7 @@ The random forest technique generates multiple predictive models, and aggregates
  # stop parallel processing 
 ```
 
-The random forest model is extremely powerful, correctly classifying all cases in our training data set. The algorithm produces optimal results with 30 predictors, reaching a maximum accuracy of 9.993 as illustrated by the following chart. 
+The random forest model is extremely powerful, correctly classifying all cases in our training data set. The algorithm produces optimal results with 30 predictors, reaching a maximum accuracy of .993 as illustrated by the following chart. 
 
 ```{r plotRFAccuracy, echo=FALSE}
 plot(modFit2,
@@ -208,7 +208,7 @@ library(iterators)
 library(parallel)
 library(foreach)
 library(doParallel)
-cluster <- makeCluster(detectCores())
+cluster <- makeCluster(detectCores() - 1)
 registerDoParallel(cluster)
 
 ```
